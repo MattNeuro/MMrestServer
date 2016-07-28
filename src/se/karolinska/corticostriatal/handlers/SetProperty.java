@@ -10,7 +10,7 @@ import se.karolinska.corticostriatal.Message;
  * 
  *  @author Matthijs
  */
-public class SetHandler extends Handler {
+public class SetProperty extends Handler {
 
     
     @Override
@@ -19,13 +19,13 @@ public class SetHandler extends Handler {
         
         try {
             message         = new Message("OK");
-            message.payload.put("image", getImage());
+            if (!params.containsKey("label") || !params.containsKey("propName") || !params.containsKey("propValue"))
+                throw new MissingKeyException();
             
-            if (params.containsKey("cameraProperties"))
-                loadCameraProperties();
             
-            if (params.containsKey("tags"))
-                loadImageTags();            
+        } catch (MissingKeyException e) {
+            message         = new Message("ERROR");
+            message.error   = "SetProperty requests require the fields 'label', 'propName' and 'propValue' to be set.";
         } catch (Exception e) {
             message         = new Message("ERROR");
             message.error   = "Could not handle SET request.";
@@ -35,5 +35,7 @@ public class SetHandler extends Handler {
         String response     = gson.toJson(message);
         return response;        
     }
-   
+ 
+    
+    private class MissingKeyException extends Exception { }
 }

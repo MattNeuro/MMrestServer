@@ -1,12 +1,12 @@
 package se.karolinska.corticostriatal;
 
-import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import se.karolinska.corticostriatal.handlers.ImageGetHandler;
 import se.karolinska.corticostriatal.handlers.IndexHandler;
 import se.karolinska.corticostriatal.handlers.ImageViewHandler;
+import se.karolinska.corticostriatal.handlers.SetProperty;
 
 /**
  *  HTTP service. When started, this will listen on the selected port for 
@@ -47,11 +47,11 @@ public class Service {
     private Service() throws Exception {
         createServer();
         
-        HttpContext context = server.createContext("/get/image/", new ImageGetHandler());
-        context.getFilters().add(new ParameterFilter());
-
+        (server.createContext("/get/image/",    new ImageGetHandler())).getFilters().add(new ParameterFilter());
         server.createContext("/view/image/",    new ImageViewHandler());
         server.createContext("/",               new IndexHandler());
+        
+        (server.createContext("/set/property/", new SetProperty())).getFilters().add(new ParameterFilter());        
     }
     
     
