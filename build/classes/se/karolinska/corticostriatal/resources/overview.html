@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato" />
+        <meta charset="UTF-8" />
+        <title>Overview of REST service</title>
+        <style>
+* {
+    font-family:        Lato;
+}
+body {
+    background-color:   #F5F5F5;
+}
+h1   {
+    width:              600px;
+    border:             1px solid #aaa;
+    padding:            10px 10px 10px 25px;
+    background-color:   white;
+    border-radius:      5px;
+    margin:             50px 0px 10px 100px;
+}
+h2  {
+    margin:             0px 0px 5px 50px;
+}
+div    {
+    background-color:   white;
+    width:              705px;
+    margin:             0px 0px 5px 10px;
+    padding:            10px;
+    border:             1px solid #ddd;
+    border-radius:      5px;
+}
+a {
+    color:              #008;
+    text-decoration:    none;
+}
+table {
+    border:             1px solid #AAA;
+    margin:             15px 10px 15px 10px;
+    border-spacing:     0px;
+}
+td {
+    padding:            2px 10px 3px 10px;
+    text-align:         left;
+}
+tr > th {
+    background-color:   #777;
+    color:              white;
+    text-align:         left;    
+    padding:            5px 10px 5px 20px;
+}
+tr:nth-child(even) {
+    background:         #DDD;
+}
+tr:nth-child(odd) {
+    background:         #EEE;
+}
+        </style>
+     
+    </head>
+    <body>
+        <img id="testLive">
+        <h1>MicroManager REST API Overview</h1>
+        
+        <div>
+            <h2>Data format</h2>
+            All responses are formatted as <a href="http://www.json.org/">JSON</a>
+            data. Common return fields include:
+            
+            <table>
+                <tr>
+                    <th>
+                        Field
+                    </th>
+                    <th>
+                        Prevalence
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        status
+                    </td>
+                    <td>
+                        Mandatory
+                    </td>
+                    <td>
+                        [OK; ERROR] Result for this request. This field
+                        indicates whether the request could be processed as 
+                        required, or if something went wrong.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        error
+                    </td>
+                    <td>
+                        <i>Optional</i>
+                    </td>
+                    <td>
+                        When status returns ERROR, this field may be present to
+                        provide additional information on what went wrong.
+                    </td>
+                </tr>                
+                <tr>
+                    <td>
+                        payload
+                    </td>
+                    <td>
+                        Mandatory
+                    </td>
+                    <td>
+                        [Various] Requested content. May contain additional 
+                        levels of information.
+                    </td>
+                </tr>                
+            </table>
+            
+            Depending on the request, additional fields may be present in the
+            response. 
+            
+            <br><br>
+            
+            A minimal example page, demonstrating how to retrieve the current live 
+            image and display it can be found at <a href="/view/image/">/view/image/</a>.
+            
+        </div>
+        
+        
+        <div>
+            <h2>GET requests</h2>
+            GET requests are used to retrieve information. They do not modify
+            the system, and should have no influence on the operation of the 
+            system.
+            
+            <br>
+            <br>
+            
+            Currently permissable GET operations are:
+            
+            <ul>
+                <li><a href="#getImage">/get/image/</a></li>
+            </ul>
+            
+            
+        </div>
+
+        <div>          
+            <h2>POST requests</h2>
+            POST requests update the system state. They could be used to modify
+            camera settings, stage configuration, etc. 
+            
+            <br>
+            <br> 
+            
+            Currently permissable POST operations are:
+            
+            <ul>
+                <li><a href="#setExposure">/set/camera/</a></li>
+            </ul>
+            
+        </div>
+        
+        
+        <h1>
+            Implementation Details
+        </h1>
+        <div>
+            <h2><a name="getImage" href="/get/image/">/get/image/</a></h2>
+            Retrieve the current live image. By default, this is encoded as a
+            base64 string, which can be converted to a byte-array by practically
+            any language. By default, images use the JPEG format for its small
+            size, though optionally this can be changed through the <i>imageFormat</i>
+            request parameter.
+            
+            <table>
+                <tr>
+                    <th>
+                        Field
+                    </th>
+                    <th>
+                        Prevalence
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        imageFormat
+                    </td>
+                    <td>
+                        <i>Optional</i>
+                    </td>
+                    <td>
+                        [JPEG; PNG; GIF; BMP; WBMP] <b>Select an image format to 
+                        be used.</b> Format matches are case-insensitive. If no 
+                        format is specified, or if an invalid format is
+                        specified, this defaults to <i>JPEG</i>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        cameraProperties
+                    </td>
+                    <td>
+                        <i>Optional</i>
+                    </td>
+                    <td>
+                        [0; 1] <b>Include a list of camera-device properties in 
+                        the response.</b> If this parameter is included in the 
+                        request, and if it equals to 1, a list of camera-device
+                        properties will be included under <i>payload.cameraProperties<i>.
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        tags
+                    </td>
+                    <td>
+                        <i>Optional</i>
+                    </td>
+                    <td>
+                        [0; 1] <b>Include a list of image tags in 
+                        the response.</b> If this parameter is included in the 
+                        request, and if it equals to 1, a list of image tags 
+                        will be included under <i>payload.tags<i>.
+                    </td>
+                </tr>                 
+            </table>
+        </div>
+    </body>
+</html>

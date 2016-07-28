@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Overview of REST service</title>
+        <script type="text/javascript">
+            function reqListener () {
+                var response;
+                //console.log(this.responseText);
+                eval("response = " + this.responseText);
+                document.getElementById("testLive").src = "data:image/png;base64," + response.payload.image;
+                setTimeout(requestImage, 10);
+            }
+            
+            
+            function requestImage () {
+                var oReq = new XMLHttpRequest();
+                oReq.onload = reqListener;
+                oReq.open("get", "http://localhost:8000/get/image/?format=png&tags=1", true);
+                oReq.send();
+            }
+            
+            requestImage();
+        </script>   
+        
+        
+    </head>
+    <body>
+        
+        <img id="testLive" src="data:image/png;base64">
+        
+    </body>
+</html>
