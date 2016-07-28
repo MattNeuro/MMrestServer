@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import org.micromanager.utils.ReportingUtils;
 import se.karolinska.corticostriatal.Message;
+import se.karolinska.corticostriatal.RestServer;
 
 /**
  *  Handle change requests.
@@ -21,6 +22,13 @@ public class SetProperty extends Handler {
             message         = new Message("OK");
             if (!params.containsKey("label") || !params.containsKey("propName") || !params.containsKey("propValue"))
                 throw new MissingKeyException();
+        
+            String label        = params.get("label").toString();
+            String propName     = params.get("propName").toString();
+            String propValue    = params.get("propValue").toString();
+            
+            RestServer.core.setProperty(label, propName, propValue);
+            
             
             
         } catch (MissingKeyException e) {
