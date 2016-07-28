@@ -2,6 +2,7 @@ package se.karolinska.corticostriatal;
 
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import se.karolinska.corticostriatal.handlers.ImageGetHandler;
 import se.karolinska.corticostriatal.handlers.IndexHandler;
@@ -44,13 +45,22 @@ public class Service {
      * @throws Exception 
      */
     private Service() throws Exception {
-        server = HttpServer.create(new InetSocketAddress(8000), 0);
+        createServer();
+        
         HttpContext context = server.createContext("/get/image/", new ImageGetHandler());
         context.getFilters().add(new ParameterFilter());
-        server.setExecutor(null); // creates a default executor
-        
 
         server.createContext("/view/image/",    new ImageViewHandler());
         server.createContext("/",               new IndexHandler());
+    }
+    
+    
+    /**
+     *  Attempt to create a server and set a default executer.
+     * @throws IOException 
+     */
+    private void createServer () throws IOException {
+        server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.setExecutor(null); // creates a default executor        
     }
 }

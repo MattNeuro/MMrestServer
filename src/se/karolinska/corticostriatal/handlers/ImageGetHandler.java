@@ -26,7 +26,7 @@ import se.karolinska.corticostriatal.RestServer;
  *  @author Matthijs
  */
 
-public class ImageGetHandler extends GetHandler {
+public class ImageGetHandler extends Handler {
     
     private final List<String> allowedFormats    = Arrays.asList("JPEG", "PNG", "GIF", "BMP", "WBMP");
     

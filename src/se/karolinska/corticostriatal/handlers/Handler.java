@@ -15,7 +15,7 @@ import se.karolinska.corticostriatal.Message;
  * 
  *  @author Matthijs
  */
-abstract public class GetHandler implements HttpHandler  {
+abstract public class Handler implements HttpHandler  {
 
     protected Map<String, Object>   params;     // URI request parameters.
     protected Message               message;    // The message to send back.
