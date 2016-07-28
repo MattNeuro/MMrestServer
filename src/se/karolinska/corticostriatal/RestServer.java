@@ -1,8 +1,8 @@
 package se.karolinska.corticostriatal;
 
 import mmcorej.CMMCore;
-import mmcorej.StrVector;
 import org.micromanager.api.ScriptInterface;
+import org.micromanager.utils.ReportingUtils;
 
 /**
  *  Implement a REST service hook into MicroManager. This enables external
@@ -19,19 +19,19 @@ public class RestServer implements org.micromanager.api.MMPlugin {
 
     @Override
     public void setApp(ScriptInterface si) {
-        System.out.println("Ok!");
+        ReportingUtils.logMessage("REST server active.");
         RestServer.si   = si;
         RestServer.core = si.getMMCore();
         try {
             Service.start();
         } catch (Exception e) {
-            e.printStackTrace();
+            ReportingUtils.showError(e);
         }
     }
 
     @Override
     public void show() {
-
+        
     }
     
     

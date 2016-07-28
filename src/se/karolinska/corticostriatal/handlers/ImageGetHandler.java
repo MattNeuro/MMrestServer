@@ -47,6 +47,7 @@ public class ImageGetHandler extends GetHandler {
         } catch (Exception e) {
             message         = new Message("ERROR");
             message.error   = "Error retrieving live image.";
+            ReportingUtils.logError(e);
         }
 
         Gson gson           = new Gson();
