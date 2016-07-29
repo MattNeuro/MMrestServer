@@ -46,11 +46,13 @@ public class Service {
      */
     private Service() throws Exception {
         createServer();
-        
-        (server.createContext("/get/image/",    new ImageGetHandler())).getFilters().add(new ParameterFilter());
+
+        // Internal documentation handlers:
         server.createContext("/view/image/",    new ImageViewHandler());
         server.createContext("/",               new IndexHandler());
         
+        // SET / GET request handlers:
+        (server.createContext("/get/image/",    new ImageGetHandler())).getFilters().add(new ParameterFilter());
         (server.createContext("/set/property/", new SetProperty())).getFilters().add(new ParameterFilter());        
     }
     

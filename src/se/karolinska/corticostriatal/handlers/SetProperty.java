@@ -27,7 +27,7 @@ public class SetProperty extends Handler {
             String propName     = params.get("propName").toString();
             String propValue    = params.get("propValue").toString();
             
-            RestServer.core.setProperty(label, propName, propValue);
+            RestServer.core.setProperty(label, propName, Integer.parseInt(propValue));
             
             
             
