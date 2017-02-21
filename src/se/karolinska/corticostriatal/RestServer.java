@@ -19,7 +19,7 @@ public class RestServer implements org.micromanager.api.MMPlugin {
 
     @Override
     public void setApp(ScriptInterface si) {
-        ReportingUtils.logMessage("REST server active.");
+        ReportingUtils.logMessage("REST server active on port 8000.");
         RestServer.si   = si;
         RestServer.core = si.getMMCore();
         try {

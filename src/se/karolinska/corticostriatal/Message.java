@@ -20,5 +20,4 @@ public class Message {
         this.status     = status;
         this.payload    = new LinkedTreeMap();
     }
-    
 }
