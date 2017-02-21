@@ -4,7 +4,7 @@ A (very) basic **RESTserver** for [MicroManager](https://micro-manager.org/).
 ## Getting started
 There are two ways to use this:
 
-* Use the precompiled .jar directly
+* Use the precompiled .jar directly.
     Download the [/dist/RestServer.jar](https://github.com/MattNeuro/MMrestServer/blob/master/dist/RestServer.jar) and place it in your MicroManager plugins folder. 
     Normally, this would be somewhere like /Micro-Manager-1.4/mmplugins/
 * Clone or download the entire project, and open in Netbeans. 

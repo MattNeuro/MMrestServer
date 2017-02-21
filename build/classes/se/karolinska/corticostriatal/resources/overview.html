@@ -30,6 +30,10 @@ div    {
     border:             1px solid #ddd;
     border-radius:      5px;
 }
+span {
+    display:            block;
+    margin:             5px 0px 5px 20px;
+}
 a {
     color:              #008;
     text-decoration:    none;
@@ -231,5 +235,85 @@ tr:nth-child(odd) {
                 </tr>                 
             </table>
         </div>
+        
+        <div>
+            <h2><a name="setProperty" href="/set/property/">/set/property/</a></h2>
+            Set an MMCore parameter. This is a generic property setter without bounds
+            checking, ergo, changing properties that require the camera or stage to be
+            offline will not ensure that this is the case. 
+            
+            <br><br>
+            
+            Currently, this defaults to integer properties, though could be adepted
+            in the future for all property types.
+            
+            <br><br>
+            
+            Note that labels and property names are <b>CaSe SeNsItiVe</b>.
+            
+            <br><br>
+            
+            <i>Example:</i> 
+            <span>
+                <a href="http://localhost:8000/set/property/?label=DCam&propName=Exposure&propValue=10">
+                    http://localhost:8000/set/property/?label=DCam&propName=Exposure&propValue=10
+                </a>
+                <br>
+                <br>
+                Set the <i>Exposure</i> time of the <i>DCam</i> device to <i>10</i> ms.
+            </span>
+
+            
+            <table>
+                <tr>
+                    <th>
+                        Field
+                    </th>
+                    <th>
+                        Prevalence
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        label
+                    </td>
+                    <td>
+                        <i>Required</i>
+                    </td>
+                    <td>
+                        [String] The device to change a property for. 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        propName
+                    </td>
+                    <td>
+                        <i>Required</i>
+                    </td>
+                    <td>
+                        [String] Name of the property to change. To find out which property names are
+                        permitted for a specified device, the core function getDevicePropertyNames can be used.
+                        Alternatively, the <i>Tools > Device Property Browser</i> should list the same values.
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        propValue
+                    </td>
+                    <td>
+                        <i>Required</i>
+                    </td>
+                    <td>
+                        [Int] The value to set the property to. This defaults to integer values, implementing the
+                        <a href="https://valelab4.ucsf.edu/~MM/doc/mmcorej/mmcorej/CMMCore.html#setProperty(java.lang.String,%20java.lang.String,%20int)">
+                            setProperty(java.lang.String label, java.lang.String propName, int propValue)</a> call.
+                    </td>
+                </tr>                 
+            </table>
+        </div>        
     </body>
 </html>
